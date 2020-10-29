@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<StudyMod title="Autodesk StudyMod" ver="1.00">
+  <UnitSystem>Metric</UnitSystem>
+  <Property>
+	<TSet>
+<!--Thermoplastics material-->
+      <ID>30011</ID>
+      <SubID>1</SubID>
+	  <TCode>
+	    <ID>11002</ID>
+	    <Value>melt_temperature</Value>
+	  </TCode>
+	  <TCode>
+	    <ID>11108</ID>
+	    <Value>mold_temperature</Value>
+	  </TCode>
+	  <TCode>
+	    <ID>10107</ID>
+	    <Value>flow_rate</Value>
+	  </TCode>
+	  <TCode>
+	    <ID>10707</ID>
+	    <Value>pack_start</Value>
+	    <Value>pack_initial_pressure</Value>
+	    <Value>pack_stop</Value>
+	    <Value>pack_end_pressure</Value>
+	  </TCode>
+	  <TCode>
+	    <ID>10102</ID>
+	    <Value>cool_time</Value>
+	  </TCode>
+   </TSet>
+  </Property>
+</StudyMod>
+
+
