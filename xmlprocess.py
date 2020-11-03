@@ -1,4 +1,6 @@
 from xml.dom.minidom import parse
+import csv
+import itertools
 
 class csv(object):#extract information from csv
 
@@ -58,8 +60,6 @@ class csv(object):#extract information from csv
 
     def generate_dicts(self,subtractlist=["melt_temp","mold_temp","flow_rate_r","dummy","pack_press","pack_time","pack_press","cool_time"],totheattrlist=["melt_temperature","mold_temperature","flow_rate","pack_start","pack_initial_pressure","pack_stop","pack_end_pressure","cool_time"]):#build the dictionary list from csv. 由subtractlist产生toheattrlist
        
-        subtractlist=["melt_temp","mold_temp","flow_rate_r","dummy","pack_press","pack_time","pack_press","cool_time"]
-        totheattrlist=["melt_temperature","mold_temperature","flow_rate","pack_start","pack_initial_pressure","pack_stop","pack_end_pressure","cool_time"]
         self.generatedDicts=[]
         for i in range (0,len(self.attrdata["melt_temp"])):
             l={}
@@ -73,10 +73,10 @@ example_replace_dictionary_IM={"melt_temperature":1,"mold_temperature":2,"flow_r
 
 class changexml(object):
 
-    def __init__(self,filenamepre="1",filename="IMxml.xml",replace_dict=example_replace_dictionary_IM):
+    def __init__(self,filenamepre="1",filename="IMxml.xml",studyname="IMxml.xml",replace_dict=example_replace_dictionary_IM):
 
         self.lines=open(filename,"r").readlines()
-        self.newxml=open(str(filenamepre)+filename,"w+")
+        self.newxml=open(str(filenamepre)+studyname,"w+")
         for i in self.lines:
 
             for j in replace_dict:
@@ -89,24 +89,30 @@ class changexml(object):
 
 
 
-def alphatest(filename="1200hf.csv"): #alphatest for 1200hf.csv Pass          
+def alphatest(filename="1200hf.csv"): #alphatest for 1200hf.csv Pass   
+    #alphatest workflow       
     k=csv(filename)
     k.createdummy()
-    k.generate_dicts(["melt_temp","mold_temp","flow_rate_r","dummy","pack_press","pack_time","pack_press","cool_time"],["melt_temperature","mold_temperature","flow_rate","pack_start","pack_initial_pressure","pack_stop","pack_end_pressure","cool_time"])
+    subtractlist=["melt_temp","mold_temp","flow_rate_r","dummy","pack_press","pack_time","pack_press","cool_time"]
+    totheattrlist=["melt_temperature","mold_temperature","flow_rate","pack_start","pack_initial_pressure","pack_stop","pack_end_pressure","cool_time"]
+
+    k.generate_dicts(subtractlist,totheattrlist)
 
     kxmllist=[]
 
     for i in range (0,len(k.generatedDicts)):
-        h=changexml(i,"IMxml.xml",k.generatedDicts[i])
+        h=changexml(i,"IMxml.xml",filename+".xml",k.generatedDicts[i])
         kxmllist.append(str(i)+filename+".xml")
     m=studymod(kxmllist)
     studys=m.generatebat()
 
     r=runstudy(studys)
     r.generatebat()
+    g=studyrlt(studys)
+    g.generatecommands()
+    g.generatebat()
     
-    
-
+'''
 class tcode(object):#trail on building xml from initial.  Abandoned
 
     def __init__(self,father_node=0,codeid=10707,codevalue=[0,18900000,14,18900000],codename=None):
@@ -133,7 +139,7 @@ class tcode(object):#trail on building xml from initial.  Abandoned
 
         father_node.appendChild(tcode_node)
 
-    '''
+    
 
     tcode reference
 
@@ -152,7 +158,7 @@ class tcode(object):#trail on building xml from initial.  Abandoned
     '''   
 
 class studymod(object):
-    def __init__(self,xmlstudy=[],studyfile="crims.sdy",moldflowpath="C:\Program Files\Autodesk\Moldflow Synergy 2019\\bin"):
+    def __init__(self,xmlstudy=[],studyfile="crims.sdy",moldflowpath="C:\Program Files\Autodesk\Moldflow Insight 2019\\bin"):
         #xmlstudy=kxmlstudy     for alphatest
         super().__init__()
         self.xmls=xmlstudy
@@ -169,7 +175,7 @@ class studymod(object):
         return self.newstudys#所有产生的studyfile 的名字，列表格式
     
 class runstudy(object):
-    def __init__(self,studys=[],command=" -temp temp -kepptmp ",moldflowpath="C:\Program Files\Autodesk\Moldflow Synergy 2019\\bin"):
+    def __init__(self,studys=[],command=" -temp temp -keeptmp ",moldflowpath="C:\Program Files\Autodesk\Moldflow Insight 2019\\bin"):
         #studys=studymod.newstudys  for alphatest
         super().__init__()
         self.studys=studys
@@ -186,5 +192,54 @@ class runstudy(object):
         #return self.newstudys#所有产生的studyfile 的名字，列表格式
     
 
+class resultcommands(object):
+    def __init__(self,commanddict={" -result ":["6260"]," -node ":["128","124","27","23","126","79","74"]," -component ":["1","2"], " -unit metric":[" "]}):
+        self.cdict={}
+        for i in commanddict:
+            self.cdict[i]=[]
+            for j in commanddict[i]:
+                self.cdict[i].append(i+j)
+        self.clist=[]
+        for i in self.cdict:
+            self.clist.append(self.cdict[i])
+        self.commands=list(itertools.product(*tuple(self.clist)))
+        self.strcommands=[]
+        for i in self.commands:
+            self.strcommands.append("".join(i))
+        
 
 
+class studyrlt(object):#under construct
+
+    def __init__(self,studys=[],commanddict={" -result ":["6260"]," -node ":["128","124","27","23","126","79","74"]," -component ":["1","2"], " -unit metric":[" "]},moldflowpath="C:\Program Files\Autodesk\Moldflow Insight 2019\\bin"):
+        #studys=studymod.newstudys  for alphatest
+        super().__init__()
+        self.studys=studys
+        #self.commands=command
+        self.studyrltpath='"'+moldflowpath+'\\studyrlt" '
+        self.commanddict=commanddict
+    def generatecommands(self):
+        self.cdict={}
+        for i in self.commanddict:
+            self.cdict[i]=[]
+            for j in self.commanddict[i]:
+                self.cdict[i].append(i+j)
+        self.clist=[]
+        for i in self.cdict:
+            self.clist.append(self.cdict[i])
+        self.commands=list(itertools.product(*tuple(self.clist)))
+        self.strcommands=[]
+        for i in self.commands:
+            self.strcommands.append("".join(i))
+        return self.strcommands
+    
+    def generatebat(self):
+        self.studyrltbat=open("studyrlt.bat","w+")
+        #self.newstudys=[]
+        for i in range(0,len(self.strcommands)):
+            for j in self.studys:
+                self.studyrltbat.write(self.studyrltpath+j+self.strcommands[i]+"\nrename "+j[:-3]+'val '+j+self.strcommands[i].replace(" ","")+'.val\n')
+
+            #self.newstudys.append(self.xmls[i]+".sdy")
+        self.studyrltbat.close()
+#    with open
