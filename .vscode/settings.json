@@ -9,5 +9,5 @@
     "python.dataScience.variableQueries": [
     
     ],
-    "python.languageServer": "Microsoft"
+    "python.languageServer": "Jedi"
 }
