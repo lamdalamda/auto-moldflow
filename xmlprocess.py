@@ -1,7 +1,7 @@
 import csv
 import itertools
 
-class csv(object):#extract information from csv
+class extractcsv(object):#extract information from csv
 
     def __init__(self,filename="1200hf.csv"):
 
@@ -90,7 +90,7 @@ class changexml(object):
 
 def alphatest(filename="1200hf.csv"): #alphatest for 1200hf.csv Pass   
     #alphatest workflow       
-    k=csv(filename)
+    k=extractcsv(filename)
     k.createdummy()
     subtractlist=["melt_temp","mold_temp","flow_rate_r","dummy","pack_press","pack_time","pack_press","cool_time"]
     totheattrlist=["melt_temperature","mold_temperature","flow_rate","pack_start","pack_initial_pressure","pack_stop","pack_end_pressure","cool_time"]
@@ -242,3 +242,5 @@ class studyrlt(object):#under construct
             #self.newstudys.append(self.xmls[i]+".sdy")
         self.studyrltbat.close()
 #    with open
+
+
