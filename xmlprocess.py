@@ -157,7 +157,7 @@ class tcode(object):#trail on building xml from initial.  Abandoned
     '''   
 
 class studymod(object):
-    def __init__(self,xmlstudy=[],studyfile="crims.sdy",moldflowpath="C:\Program Files\Autodesk\Moldflow Insight 2019\\bin"):
+    def __init__(self,xmlstudy=[],studyfile="crims.sdy",moldflowpath=r"C:\Program Files\Autodesk\Moldflow Insight 2019\bin"):
         #xmlstudy=kxmlstudy     for alphatest
         super().__init__()
         self.xmls=xmlstudy
@@ -174,7 +174,7 @@ class studymod(object):
         return self.newstudys#所有产生的studyfile 的名字，列表格式
     
 class runstudy(object):
-    def __init__(self,studys=[],command=" -temp temp -keeptmp ",moldflowpath="C:\Program Files\Autodesk\Moldflow Insight 2019\\bin"):
+    def __init__(self,studys=[],command=" -temp temp -keeptmp ",moldflowpath=r"C:\Program Files\Autodesk\Moldflow Insight 2019\bin"):
         #studys=studymod.newstudys  for alphatest
         super().__init__()
         self.studys=studys
@@ -210,7 +210,7 @@ class resultcommands(object):
 
 class studyrlt(object):#under construct
 
-    def __init__(self,studys=[],commanddict={" -result ":["6260"]," -node ":["128","124","27","23","126","79","74"]," -component ":["1","2"], " -unit metric":[" "]},moldflowpath="C:\Program Files\Autodesk\Moldflow Insight 2019\\bin"):
+    def __init__(self,studys=[],commanddict={" -result ":["6260"]," -node ":["128","124","27","23","126","79","74"]," -component ":["1","2"], " -unit metric":[" "]},moldflowpath=r"C:\Program Files\Autodesk\Moldflow Insight 2019\bin"):
         #studys=studymod.newstudys  for alphatest
         super().__init__()
         self.studys=studys
