@@ -110,51 +110,28 @@ def alphatest(filename="1200hf.csv"): #alphatest for 1200hf.csv Pass
     g=studyrlt(studys)
     g.generatecommands()
     g.generatebat()
-    
-'''
-class tcode(object):#trail on building xml from initial.  Abandoned
 
-    def __init__(self,father_node=0,codeid=10707,codevalue=[0,18900000,14,18900000],codename=None):
+def betatest(filename="2kicmsetting.csv",subtractlist=["melt_temp","mold_temp","flow_rate_r","dummy","pack_press","pack_time","pack_press","cool_time"],totheattrlist=["melt_temperature","mold_temperature","flow_rate","pack_start","pack_initial_pressure","pack_stop","pack_end_pressure","cool_time"]): #betatest for 2kicmsetting   
+    #alphatest workflow       
+    k=extractcsv(filename)
 
-        tcode_node=domTree.createElement("TCode")
+    k.generate_dicts(subtractlist,totheattrlist)
 
-        id_node=domTree.createElement("ID")
+    kxmllist=[]
 
-        id_codeid=domTree.createTextNode(codeid)
+    for i in range (0,len(k.generatedDicts)):
+        h=changexml(i,"2kicm.xml",filename+".xml",k.generatedDicts[i])
+        kxmllist.append(str(i)+filename+".xml")
+    m=studymod(kxmllist)
+    studys=m.generatebat()
 
-        id_node.appendChild(id_codeid)
+    r=runstudy(studys)
+    r.generatebat()
+    g=studyrlt(studys)
+    g.generatecommands()
+    g.generatebat()
 
-        tcode_node.appendChild(id_node)
 
-        for i in codevalue:
-
-            value_node=domTree.createElement("Value")
-
-            Value_value=domTree.createElement(i)
-
-            value_node.appendChild(Value_value)
-
-            tcode_node.appendChild(value_node)
-
-        father_node.appendChild(tcode_node)
-
-    
-
-    tcode reference
-
-                <TCode>
-
-                    <ID>10707</ID>
-
-                    <Value>0</Value>
-
-                    <Value>18900000</Value>
-
-                    <Value>14</Value>
-
-                    <Value>18900000</Value>
-
-    '''   
 
 class studymod(object):
     def __init__(self,xmlstudy=[],studyfile="crims.sdy",moldflowpath=r"C:\Program Files\Autodesk\Moldflow Insight 2019\bin"):
