@@ -14,3 +14,4 @@ icmdict=["icm_mold_temp","icm_melt_temp","icm_injection_time","icm_vp_switchover
 
 def workflow():
     a=betatest("2kicmsetting.csv",icmdict,icmdict)
+workflow()

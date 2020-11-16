@@ -60,7 +60,7 @@ class extractcsv(object):#extract information from csv
     def generate_dicts(self,subtractlist=["melt_temp","mold_temp","flow_rate_r","dummy","pack_press","pack_time","pack_press","cool_time"],totheattrlist=["melt_temperature","mold_temperature","flow_rate","pack_start","pack_initial_pressure","pack_stop","pack_end_pressure","cool_time"]):#build the dictionary list from csv. 由subtractlist产生toheattrlist
        
         self.generatedDicts=[]
-        for i in range (0,len(self.attrdata["melt_temp"])):
+        for i in range (0,len(self.attrdata[subtractlist[0]])):
             l={}
             for j in range(0,len(subtractlist)):
                 l[totheattrlist[j]]=self.attrdata[subtractlist[j]][i].replace("\n","")
@@ -122,7 +122,7 @@ def betatest(filename="2kicmsetting.csv",subtractlist=["melt_temp","mold_temp","
     for i in range (0,len(k.generatedDicts)):
         h=changexml(i,"2kicm.xml",filename+".xml",k.generatedDicts[i])
         kxmllist.append(str(i)+filename+".xml")
-    m=studymod(kxmllist)
+    m=studymod(kxmllist,"2kicm.sdy")
     studys=m.generatebat()
 
     r=runstudy(studys)
