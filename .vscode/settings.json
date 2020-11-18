@@ -6,6 +6,6 @@
     "vscode-mysql.resultTheme": "Default",
     "workbench.colorTheme": "Solarized Light",
     "git.path": "C:/Program Files/Git/bin/git.exe",
-    "python.languageServer": "Jedi",
+    "python.languageServer": "Pylance",
     "jupyter.variableQueries": []
 }

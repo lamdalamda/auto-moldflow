@@ -134,7 +134,7 @@ def betatest(filename="2kicmsetting.csv",subtractlist=["melt_temp","mold_temp","
 
 
 class studymod(object):
-    def __init__(self,xmlstudy=[],studyfile="crims.sdy",moldflowpath=r"C:\Program Files\Autodesk\Moldflow Insight 2019\bin"):
+    def __init__(self,xmlstudy=[],studyfile="crims.sdy",moldflowpath=r"C:\Program Files\Autodesk\Moldflow Synergy 2019\bin"):
         #xmlstudy=kxmlstudy     for alphatest
         super().__init__()
         self.xmls=xmlstudy
@@ -144,8 +144,8 @@ class studymod(object):
         self.studymodbat=open("studymod.bat","w+")
         self.newstudys=[]
         for i in range(0,len(self.xmls)):
-            self.studymodbat.write(self.studymodpath+" "+self.studyfile+" "+self.xmls[i]+".sdy "+self.xmls[i]+"\n")
-            self.newstudys.append(self.xmls[i]+".sdy")
+            self.studymodbat.write(self.studymodpath+" "+self.studyfile+" "+self.xmls[i].replace(".","")+".sdy "+self.xmls[i]+"\n")
+            self.newstudys.append(self.xmls[i].replace(".","")+".sdy")
         self.studymodbat.close()
 
         return self.newstudys#所有产生的studyfile 的名字，列表格式
