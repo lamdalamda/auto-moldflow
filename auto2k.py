@@ -238,7 +238,7 @@ class generatempi(object):
         self.mpifile=open("./temp/"+self.mpifilename,"w+")
         self.mpifile.write(self.pretexts)
         for i in self.studys:
-            self.mpifile.write('STUDY "'+i[0:5]+' "'+i+"\n")
+            self.mpifile.write('STUDY "'+i[0:5].replace(".","")+'" '+i+"\n")
         self.mpifile.write(self.subtexts)
         return
 

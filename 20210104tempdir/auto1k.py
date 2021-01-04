@@ -78,6 +78,8 @@ def alphatest(filename="1200hf.csv",xmlname="IMxml.xml"): #alphatest for 1200hf.
     g=studyrlt(studys)
     g.generatecommands()
     g.generatebat()
+    mpis=generatempi(studys)
+    mpis.generate()
   
 '''
 class tcode(object):#trail on building xml from initial.  Abandoned
@@ -180,7 +182,19 @@ class studyrlt(object):#under construct
                 self.studyrltbat.write(self.studyrltpath+j+self.strcommands[i]+"\nrename "+j[:-3]+'val '+j+self.strcommands[i].replace(" ","")+'.val\n')
             #self.newstudys.append(self.xmls[i]+".sdy")
         self.studyrltbat.close()
-
+class generatempi(object):
+    def __init__(self,studys=[],mpifilename="crims result.mpi",projectname="auto1k"):
+        self.studys=studys
+        self.mpifilename=mpifilename
+        self.pretexts='VERSION 1.0\nBEGIN PROJECT "'+projectname+'"\n'
+        self.subtexts="END PROJECT\nORGANIZE 0\nBEGIN PROPERTIES\nEND PROPERTIES\nLast Write Time: Thu Dec 31 13:12:04 2020"
+    def generate(self):
+        self.mpifile=open("./temp/"+self.mpifilename,"w+")
+        self.mpifile.write(self.pretexts)
+        for i in self.studys:
+            self.mpifile.write('STUDY "'+i[0:5].replace(".","")+'" '+i+"\n")
+        self.mpifile.write(self.subtexts)
+        return
 
 #main
 if __name__=='__main__':
