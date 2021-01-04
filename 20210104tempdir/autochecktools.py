@@ -97,6 +97,8 @@ class checktools(object):
             continueloop=self.generate_ouput()
         for i in range(0,80):
             print("\n")
+        for i in range(0,30):
+            print("-")
         input("done, please find the files in the temp folder\n running sequence: studymod.bat-->runstudy.bat-->studyrlt.bat\nif the .bat file cannot run properly, please use the 'cd' command in the CMD to locate the temp directory and then copy and paste the code\npress enter to exit")    
     
 

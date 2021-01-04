@@ -137,6 +137,8 @@ def betatest(filename="2kicmsetting.csv",subtractlist=["melt_temp","mold_temp","
     g=studyrlt(studys)
     g.generatecommands()
     g.generatebat()
+    mpis=generatempi(studys)
+    mpis.generate()
 
 
 
@@ -226,6 +228,19 @@ class studyrlt(object):#under construct
             #self.newstudys.append(self.xmls[i]+".sdy")
         self.studyrltbat.close()
 #    with open
+class generatempi(object):
+    def __init__(self,studys=[],mpifilename="crims result.mpi",projectname="auto2k"):
+        self.studys=studys
+        self.mpifilename=mpifilename
+        self.pretexts='VERSION 1.0\nBEGIN PROJECT "'+projectname+'"\n'
+        self.subtexts="END PROJECT\nORGANIZE 0\nBEGIN PROPERTIES\nEND PROPERTIES\nLast Write Time: Thu Dec 31 13:12:04 2020"
+    def generate(self):
+        self.mpifile=open("./temp/"+self.mpifilename,"w+")
+        self.mpifile.write(self.pretexts)
+        for i in self.studys:
+            self.mpifile.write('STUDY "'+i[0:5]+' "'+i+"\n")
+        self.mpifile.write(self.subtexts)
+        return
 
 
 
