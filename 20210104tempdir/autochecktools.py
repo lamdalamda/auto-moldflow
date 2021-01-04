@@ -73,16 +73,16 @@ class checktools(object):
             print("1k ready for auto-generate(crims)")
         if self.k2icm_ok():
             print("2k ready for auto-generate(2kicm)")
-        user_input=input("input the number to change the path\ninput crims to generate IM studys\n input 2kicm to generate 2kicm parallel studys\ninput q to quit: ")
+        user_input=input("input the number to change the path\ninput 1k to generate 1k studys\n input 2k to generate 2k parallel studys\ninput q to quit: ")
         #not finish yet
         #input 2kicm to do the 2kicm.py
         #input crims to do the crims.py
-        if user_input=="2kicm":
-            icmdict=autoicm.icmdict
-            autoicm.betatest(self.pathdict["icmcsv"],icmdict,icmdict,self.pathdict["icmxml"])
+        if user_input=="2k":
+            icmdict=auto2k.icmdict
+            auto2k.betatest(self.pathdict["icmcsv"],icmdict,icmdict,self.pathdict["icmxml"])
             return False
-        elif user_input=="crims":
-            crims.alphatest(self.pathdict["crimscsv"],self.pathdict["crimsxml"])
+        elif user_input=="1k":
+            auto1k.alphatest(self.pathdict["crimscsv"],self.pathdict["crimsxml"])
 
             
             
