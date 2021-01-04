@@ -8,30 +8,30 @@
       <SubID>1</SubID>
 	  <TCode>
 	    <ID>11108</ID>
-	    <Value>icm_mold_temp</Value>
+	    <Value>1</Value>
 	  </TCode>
 	  <TCode>
 	    <ID>11002</ID>
-	    <Value>icm_melt_temp</Value>
+	    <Value>2</Value>
 	  </TCode>
 	  <TCode>
 	    <ID>10100</ID>
-	    <Value>icm_injection_time</Value>
+	    <Value>3</Value>
 	  </TCode>
 	  <TCode>
 	    <ID>10318</ID>
-	    <Value>icm_vp_switchover</Value>
+	    <Value>4</Value>
 	  </TCode>
 	  <TCode>
 	    <ID>10722</ID>
-	    <Value>icm_pack_start</Value>
-	    <Value>icm_pack_initial_pressure</Value>
-	    <Value>icm_pack_stop</Value>
-	    <Value>icm_pack_end_pressure</Value>
+	    <Value>5</Value>
+	    <Value>6</Value>
+	    <Value>7</Value>
+	    <Value>8</Value>
 	  </TCode>
 	  <TCode>
 	    <ID>10102</ID>
-	    <Value>icm_cool_time</Value>
+	    <Value>9</Value>
 	  </TCode>
    </TSet>
 <TSet>
@@ -40,30 +40,30 @@
       <SubID>1</SubID>
 	  <TCode>
 	    <ID>11108</ID>
-	    <Value>im_mold_temp</Value>
+	    <Value>10</Value>
 	  </TCode>
 	  <TCode>
 	    <ID>11002</ID>
-	    <Value>im_melt_temp</Value>
+	    <Value>11</Value>
 	  </TCode>
 	  <TCode>
 	    <ID>10100</ID>
-	    <Value>im_injection_time</Value>
+	    <Value>12</Value>
 	  </TCode>
 	  <TCode>
 	    <ID>10308</ID>
-	    <Value>im_vp_switchover</Value>
+	    <Value>13</Value>
 	  </TCode>
 	  <TCode>
 	    <ID>10702</ID>
-	    <Value>im_pack_start</Value>
-	    <Value>im_pack_initial_pressure</Value>
-	    <Value>im_pack_stop</Value>
-	    <Value>im_pack_end_pressure</Value>
+	    <Value>14</Value>
+	    <Value>15</Value>
+	    <Value>16</Value>
+	    <Value>17</Value>
 	  </TCode>
 	  <TCode>
 	    <ID>10102</ID>
-	    <Value>im_cool_time</Value>
+	    <Value>18</Value>
 	  </TCode>
    </TSet>
    <TSet>
@@ -72,30 +72,30 @@
       <SubID>1</SubID>
 	  <TCode>
 	    <ID>11402</ID>
-	    <Value>press_open</Value>
+	    <Value>19</Value>
 	  </TCode>
 	  <TCode>
 	    <ID>11418</ID>
-	    <Value>compression_start</Value>
+	    <Value>20</Value>
 	  </TCode>
 	  <TCode>
 	    <ID>10210</ID>
-	    <Value>compression_time</Value>
+	    <Value>21</Value>
 	  </TCode>
 	  <TCode>
 	    <ID>11414</ID>
-	    <Value>speed_cap</Value>
+	    <Value>22</Value>
 	  </TCode>
 	  <TCode>
 	    <ID>11408</ID>
-	    <Value>one_compression_distance</Value>
-	    <Value>one_compression_speed</Value>
-	    <Value>two_compression_distance</Value>
-	    <Value>two_compression_speed</Value>
+	    <Value>23</Value>
+	    <Value>24</Value>
+	    <Value>25</Value>
+	    <Value>26</Value>
 	  </TCode>
 	  <TCode>
 	    <ID>11410</ID>
-	    <Value>force_cap</Value>
+	    <Value>27</Value>
 	  </TCode>
    </TSet>
   </Property>

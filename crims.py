@@ -1,4 +1,3 @@
-import csv
 import itertools
 
 class csv(object):#extract information from csv
@@ -98,7 +97,7 @@ class tcode(object):#trail on building xml from initial.  Abandoned
                     <Value>18900000</Value>
     ''' 
 class studymod(object):
-    def __init__(self,xmlstudy=[],studyfile="crims.sdy",moldflowpath="C:\Program Files\Autodesk\Moldflow Insight 2019\\bin"):
+    def __init__(self,xmlstudy=[],studyfile="crims.sdy",moldflowpath=r"C:\Program Files\Autodesk\Moldflow Insight 2019\bin"):
         #xmlstudy=kxmlstudy     for alphatest
         super().__init__()
         self.xmls=xmlstudy
@@ -114,7 +113,7 @@ class studymod(object):
         return self.newstudys#所有产生的studyfile 的名字，列表格式
   
 class runstudy(object):
-    def __init__(self,studys=[],command=" -temp temp -keeptmp ",moldflowpath="C:\Program Files\Autodesk\Moldflow Insight 2019\\bin"):
+    def __init__(self,studys=[],command=" -temp temp -keeptmp ",moldflowpath=r"C:\Program Files\Autodesk\Moldflow Insight 2019\bin"):
         #studys=studymod.newstudys  for alphatest
         super().__init__()
         self.studys=studys
@@ -178,8 +177,8 @@ class studyrlt(object):#under construct
 
 
 #main
-
-alphatest("1200hf.csv","IMxml.xml")
+if __name__=='__main__':
+    alphatest("1200hf.csv","IMxml.xml")
 
 '''
 
