@@ -118,7 +118,7 @@ def alphatest(filename="1200hf.csv"): #alphatest for 1200hf.csv Pass
     g.generatecommands()
     g.generatebat()
 
-def betatest(filename="2kicmsetting.csv",subtractlist=["melt_temp","mold_temp","flow_rate_r","dummy","pack_press","pack_time","pack_press","cool_time"],totheattrlist=["melt_temperature","mold_temperature","flow_rate","pack_start","pack_initial_pressure","pack_stop","pack_end_pressure","cool_time"],xmlfilename="2kicm.xml"): #betatest for 2kicmsetting   
+def betatest(filename="2kicmsetting.csv",subtractlist=["melt_temp","mold_temp","flow_rate_r","dummy","pack_press","pack_time","pack_press","cool_time"],totheattrlist=["melt_temperature","mold_temperature","flow_rate","pack_start","pack_initial_pressure","pack_stop","pack_end_pressure","cool_time"],xmlfilename="2kicm.xml",sdyname="2kicm.sdy"): #betatest for 2kicmsetting   
     #alphatest workflow       
     k=extractcsv(filename)
 
@@ -129,7 +129,7 @@ def betatest(filename="2kicmsetting.csv",subtractlist=["melt_temp","mold_temp","
     for i in range (0,len(k.generatedDicts)):
         h=changexml(i,xmlfilename,filename+".xml",k.generatedDicts[i])
         kxmllist.append(str(i)+filename+".xml")
-    m=studymod(kxmllist,"2kicm.sdy")
+    m=studymod(kxmllist,sdyname)
     studys=m.generatebat()
 
     r=runstudy(studys)
@@ -140,6 +140,27 @@ def betatest(filename="2kicmsetting.csv",subtractlist=["melt_temp","mold_temp","
     mpis=generatempi(studys)
     mpis.generate()
 
+def ostest(filename="2kicmsetting.csv",subtractlist=["melt_temp","mold_temp","flow_rate_r","dummy","pack_press","pack_time","pack_press","cool_time"],totheattrlist=["melt_temperature","mold_temperature","flow_rate","pack_start","pack_initial_pressure","pack_stop","pack_end_pressure","cool_time"],xmlfilename="2kicm.xml",sdyname="2kicm.sdy"): #betatest for 2kicmsetting   
+    #alphatest workflow       
+    k=extractcsv(filename)
+
+    k.generate_dicts(subtractlist,totheattrlist)
+
+    kxmllist=[]
+
+    for i in range (0,len(k.generatedDicts)):
+        h=changexml(i,xmlfilename,filename+".xml",k.generatedDicts[i])
+        kxmllist.append(str(i)+filename+".xml")
+    m=studymod(kxmllist,sdyname)
+    studys=m.runbat()
+
+    r=runstudy(studys)
+    r.generatebat()
+    g=studyrlt(studys)
+    g.generatecommands()
+    g.generatebat()
+    mpis=generatempi(studys)
+    mpis.generate()
 
 
 class studymod(object):
@@ -159,6 +180,17 @@ class studymod(object):
 
         return self.newstudys#所有产生的studyfile 的名字，列表格式
     
+    def runbat(self):
+        self.studymodbat=open("./temp/studymod.bat","w+")
+        self.newstudys=[]
+        for i in range(0,len(self.xmls)):
+            thiscommand=self.studymodpath+" "+self.studyfile+" ./temp/"+self.xmls[i].replace(".","")+".sdy "+self.xmls[i]
+            os.system(thiscommand)
+            self.studymodbat.write(self.studymodpath+" "+self.studyfile+" "+self.xmls[i].replace(".","")+".sdy "+self.xmls[i]+"\n")
+            self.newstudys.append(self.xmls[i]+".sdy")
+        self.studymodbat.close()
+        return self.newstudys#所有产生的studyfile 的名字，列表格式
+
 class runstudy(object):
     def __init__(self,studys=[],command=" -temp temp -keeptmp ",moldflowpath=r"C:\Program Files\Autodesk\Moldflow Insight 2019\bin"):
         #studys=studymod.newstudys  for alphatest

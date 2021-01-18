@@ -56,7 +56,7 @@ class changexml(object):
                     print(i)
             self.newxml.write(i)
 
-def alphatest(filename="1200hf.csv",xmlname="IMxml.xml"): #alphatest for 1200hf.csv Pass 
+def alphatest(filename="1200hf.csv",xmlname="IMxml.xml",sdyname="crims.sdy"): #alphatest for 1200hf.csv Pass 
     #alphatest workflow     
     try:
         os.mkdir("temp")
@@ -80,7 +80,35 @@ def alphatest(filename="1200hf.csv",xmlname="IMxml.xml"): #alphatest for 1200hf.
     g.generatebat()
     mpis=generatempi(studys)
     mpis.generate()
-  
+
+
+def ostest(filename="1200hf.csv",xmlname="IMxml.xml"):
+#because .bat file can not run
+#using os module of python
+    #alphatest workflow     
+    try:
+        os.mkdir("temp")
+    except FileExistsError:
+        print("temp folder exist,continue")
+    k=csv(filename)
+    k.createdummy()
+    subtractlist=["melt_temp","mold_temp","flow_rate_r","dummy","pack_press","pack_time","pack_press","cool_time"]
+    totheattrlist=["melt_temperature","mold_temperature","flow_rate","pack_start","pack_initial_pressure","pack_stop","pack_end_pressure","cool_time"]
+    k.generate_dicts(subtractlist,totheattrlist)
+    kxmllist=[]
+    for i in range (0,len(k.generatedDicts)):
+        h=changexml(i,xmlname,filename+".xml",k.generatedDicts[i])
+        kxmllist.append(str(i)+filename+".xml")
+    m=studymod(kxmllist)
+    studys=m.runbat()
+    r=runstudy(studys)
+    r.generatebat()
+    g=studyrlt(studys)
+    g.generatecommands()
+    g.generatebat()
+    mpis=generatempi(studys)
+    mpis.generate()
+
 '''
 class tcode(object):#trail on building xml from initial.  Abandoned
     def __init__(self,father_node=0,codeid=10707,codevalue=[0,18900000,14,18900000],codename=None):
@@ -119,7 +147,17 @@ class studymod(object):
             self.newstudys.append(self.xmls[i]+".sdy")
         self.studymodbat.close()
         return self.newstudys#所有产生的studyfile 的名字，列表格式
-  
+    def runbat(self):
+        self.studymodbat=open("./temp/studymod.bat","w+")
+        self.newstudys=[]
+        for i in range(0,len(self.xmls)):
+            thiscommand=self.studymodpath+" "+self.studyfile+" ./temp/"+self.xmls[i].replace(".","")+".sdy "+self.xmls[i]
+            os.system(thiscommand)
+            self.studymodbat.write(self.studymodpath+" "+self.studyfile+" "+self.xmls[i].replace(".","")+".sdy "+self.xmls[i]+"\n")
+            self.newstudys.append(self.xmls[i]+".sdy")
+        self.studymodbat.close()
+        return self.newstudys#所有产生的studyfile 的名字，列表格式
+
 class runstudy(object):
     def __init__(self,studys=[],command=" -temp temp -keeptmp ",moldflowpath=r"C:\Program Files\Autodesk\Moldflow Insight 2019\bin"):
         #studys=studymod.newstudys  for alphatest

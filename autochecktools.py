@@ -78,11 +78,14 @@ class checktools(object):
         #input 2kicm to do the 2kicm.py
         #input crims to do the crims.py
         if user_input=="2kicm":
-            icmdict=autoicm.icmdict
-            autoicm.betatest(self.pathdict["icmcsv"],icmdict,icmdict,self.pathdict["icmxml"])
+            icmdict=auto2k.icmdict
+            os.system("copy "+self.pathdict["2kicmsdy"]+" ./temp/"+self.pathdict["2kicmsdy"])
+            auto2k.betatest(self.pathdict["icmcsv"],icmdict,icmdict,self.pathdict["icmxml"],self.pathdict["2kicmsdy"])
             return False
         elif user_input=="crims":
-            crims.alphatest(self.pathdict["crimscsv"],self.pathdict["crimsxml"])
+            os.system("copy "+self.pathdict["crimssdy"]+" ./temp/"+self.pathdict["crimssdy"])
+
+            auto1k.alphatest(self.pathdict["crimscsv"],self.pathdict["crimsxml"],self.pathdict["crimssdy"])
 
             
             
