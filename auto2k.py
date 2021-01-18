@@ -261,7 +261,7 @@ class studyrlt(object):#under construct
         self.studyrltbat.close()
 #    with open
 class generatempi(object):
-    def __init__(self,studys=[],mpifilename="crims result.mpi",projectname="auto2k"):
+    def __init__(self,studys=[],mpifilename="2kicmresult.mpi",projectname="auto2k"):
         self.studys=studys
         self.mpifilename=mpifilename
         self.pretexts='VERSION 1.0\nBEGIN PROJECT "'+projectname+'"\n'
@@ -270,7 +270,9 @@ class generatempi(object):
         self.mpifile=open("./temp/"+self.mpifilename,"w+")
         self.mpifile.write(self.pretexts)
         for i in self.studys:
-            self.mpifile.write('STUDY "'+i[0:5].replace(".","")+'" '+i+"\n")
+            j=i.replace(".csv","csv")
+            j=i.replace(".xml","xml")
+            self.mpifile.write('STUDY "'+j+'" '+i+"\n")
         self.mpifile.write(self.subtexts)
         return
 
