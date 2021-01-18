@@ -73,17 +73,17 @@ class checktools(object):
             print("1k ready for auto-generate(crims)")
         if self.k2icm_ok():
             print("2k ready for auto-generate(2kicm)")
-        user_input=input("input the number to change the path\ninput crims to generate IM studys\n input 2kicm to generate 2kicm parallel studys\ninput q to quit: ")
+        user_input=input("input the number to change the path\ninput 1k to generate IM studys\n input 2k to generate 2kicm parallel studys\ninput q to quit: ")
         #not finish yet
         #input 2kicm to do the 2kicm.py
         #input crims to do the crims.py
         if user_input=="2k":
             icmdict=auto2k.icmdict
-            os.system("copy "+self.pathdict["2kicmsdy"]+" ./temp/"+self.pathdict["2kicmsdy"])
+            os.system("copy "+self.pathdict["2kicmsdy"]+" .\\temp\\"+self.pathdict["2kicmsdy"])
             auto2k.ostest(self.pathdict["icmcsv"],icmdict,icmdict,self.pathdict["icmxml"],self.pathdict["2kicmsdy"])
             return False
         elif user_input=="1k":
-            os.system("copy "+self.pathdict["crimssdy"]+" ./temp/"+self.pathdict["crimssdy"])
+            os.system("copy "+self.pathdict["crimssdy"]+" .\\temp\\"+self.pathdict["crimssdy"])
 
             auto1k.ostest(self.pathdict["crimscsv"],self.pathdict["crimsxml"],self.pathdict["crimssdy"])
 

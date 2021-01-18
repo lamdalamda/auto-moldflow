@@ -184,7 +184,7 @@ class studymod(object):
         self.studymodbat=open("./temp/studymod.bat","w+")
         self.newstudys=[]
         for i in range(0,len(self.xmls)):
-            thiscommand=self.studymodpath+" "+self.studyfile+" ./temp/"+self.xmls[i].replace(".","")+".sdy "+self.xmls[i]
+            thiscommand=self.studymodpath+" "+self.studyfile+" ./temp/"+self.xmls[i].replace(".","")+".sdy ./temp/"+self.xmls[i]
             os.system(thiscommand)
             self.studymodbat.write(self.studymodpath+" "+self.studyfile+" "+self.xmls[i].replace(".","")+".sdy "+self.xmls[i]+"\n")
             self.newstudys.append(self.xmls[i]+".sdy")
